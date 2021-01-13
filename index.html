@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <!-- <div class="container_1">
+    <div class="box box_sm">1</div>
+    <div class="box box_xl">2</div>
+    <div class="box box_s">3</div>
+    <div class="box box_m">4</div>
+    <div class="box box_xl">5</div>
+    <div class="box box_m">6</div>
+    <div class="box box_l">7</div>
+    <div class="box box_s">8</div>
+    <div class="box box_m">9</div>
+    <div class="box box_xl">10</div>
+  </div>
+  <div class="container_2">
+    <div class="box box_sm">1</div>
+    <div class="box box_xl">2</div>
+    <div class="box box_s">3</div>
+    <div class="box box_m">4</div>
+    <div class="box box_xl">5</div>
+    <div class="box box_m">6</div>
+    <div class="box box_l">7</div>
+    <div class="box box_s">8</div>
+    <div class="box box_m">9</div>
+    <div class="box box_xl">10</div>
+  </div> -->
+  <div class="container_3" id="container">
+    <div class="box box_sm">1</div>
+    <div class="box box_xl">2</div>
+    <div class="box box_s">3</div>
+    <div class="box box_m">4</div>
+    <div class="box box_xl">5</div>
+    <div class="box box_m">6</div>
+    <div class="box box_l">7</div>
+    <div class="box box_s">8</div>
+    <div class="box box_m">9</div>
+    <div class="box box_xl">10</div>
+  </div>
+  <script>
+    window.onload = function () {
+      const containerEl = document.getElementById('container')
+      const elements = document.getElementsByClassName('box')
+      waterFall(containerEl, elements, 10)
+    }
+    function waterFall(containerEl, elements, gap = 0) {
+      const containerWidth = containerEl.offsetWidth
+      const elementWidth = elements[0].offsetWidth
+      const col = Math.floor(containerWidth / elementWidth) // 计算出列数
+
+      const heightArr = [], len = elements.length
+      for (let i = 0; i < len; i++) {
+        let el = elements[i]
+        if (i < col) { // 第一行
+          heightArr.push(el.offsetHeight)
+          el.style.top = 0
+          el.style.left = `${(elementWidth + gap) * i}px`
+        } else {
+          // 求出最矮盒子的高度
+          let minElHeight = Math.min.apply(this, heightArr)
+          // 求出最矮盒子的索引
+          let minElIndex = heightArr.indexOf(minElHeight)
+          el.style.top = `${minElHeight + gap}px`
+          el.style.left = `${(elementWidth + gap) * minElIndex}px`
+          // 更新最小高度
+          heightArr[minElIndex] += el.offsetHeight
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
